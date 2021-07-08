@@ -81,7 +81,7 @@ func main() {
 			checkErr(err)
 			txHash, err = quanjia.Transfer(acct1, acct2.Address, transferAmt, gasPrice, gasLimit)
 			checkErr(err)
-			log.Info("from:%s,to:%s,amt:%s,txHash:%s", acct1.Address.ToBase58(), acct2.Address.ToBase58(), transferAmt.String(), txHash.ToHexString())
+			log.Infof("from:%s,to:%s,amt:%s,txHash:%s", acct1.Address.ToBase58(), acct2.Address.ToBase58(), transferAmt.String(), txHash.ToHexString())
 			time.Sleep(time.Second * 1)
 		}
 		return
