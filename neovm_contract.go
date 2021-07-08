@@ -18,11 +18,13 @@ import (
 
 type NeoVMContract struct {
 	dnaSkd *DNASdk
+	ClaimRecord *ClaimRecord
 }
 
 func newNeoVMContract(dnaSkd *DNASdk) *NeoVMContract {
 	return &NeoVMContract{
 		dnaSkd: dnaSkd,
+		ClaimRecord: NewClaimRecord(dnaSkd),
 	}
 }
 
