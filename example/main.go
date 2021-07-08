@@ -6,8 +6,8 @@ import (
 	DNA_go_sdk "github.com/DNAProject/DNA-go-sdk"
 	"github.com/DNAProject/DNA-go-sdk/oep4"
 	"github.com/DNAProject/DNA/common"
+	"github.com/DNAProject/DNA/common/log"
 	"math/big"
-	"math/rand"
 	"time"
 )
 
@@ -67,11 +67,11 @@ func main() {
 			sdk.WaitForGenerateBlock(time.Second*40, 1)
 		}
 		quanjia := oep4.NewOep4(contractAddr, sdk)
-		rand.Seed(time.Now().Unix())
 		count := wallet.GetAccountCount()
-		var transferAmt *big.Int
+		var transferAmt = big.NewInt(1000)
 		var ind, ind2 int
 		var acct1, acct2 *DNA_go_sdk.Account
+		var txHash common.Uint256
 		for i := 0; i < 100000000; i++ {
 			ind = i % count
 			ind2 = (i + 1) % count
@@ -79,8 +79,9 @@ func main() {
 			checkErr(err)
 			acct2, err = wallet.GetAccountByIndex(ind2+1, pwd)
 			checkErr(err)
-			transferAmt = big.NewInt(rand.Int63n(10000))
-			quanjia.Transfer(acct1, acct2.Address, transferAmt, gasPrice, gasLimit)
+			txHash, err = quanjia.Transfer(acct1, acct2.Address, transferAmt, gasPrice, gasLimit)
+			checkErr(err)
+			log.Info("from:%s,to:%s,amt:%s,txHash:%s", acct1.Address.ToBase58(), acct2.Address.ToBase58(), transferAmt.String(), txHash.ToHexString())
 			time.Sleep(time.Second * 1)
 		}
 		return

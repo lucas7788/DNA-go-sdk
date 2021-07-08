@@ -2,10 +2,7 @@ module github.com/DNAProject/DNA-go-sdk
 
 go 1.13
 
-replace (
-	github.com/DNAProject/DNA => /Users/sss/gopath/src/github.com/DNAProject/DNA
-	github.com/go-interpreter/wagon => github.com/ontio/wagon v0.3.1-0.20191223040208-db6073fb2776
-)
+replace github.com/go-interpreter/wagon => github.com/ontio/wagon v0.3.1-0.20191223040208-db6073fb2776
 
 require (
 	github.com/DNAProject/DNA v0.7.3-0.20200610104710-f2026641c6ab
